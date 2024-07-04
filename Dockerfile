@@ -22,9 +22,9 @@ RUN sudo passwd -d roberto
 
 RUN sudo groupadd roberto_group
 
-# ajout de l'utlisateur au groupe creee
+# ajout de l'utlisateur au groupe creee et au groupe sudo 
 
-RUN sudo usermod -G roberto_group roberto
+RUN sudo usermod -G sudo roberto_group roberto
 
 # specification du shell de l'utilisateur 
 
@@ -62,3 +62,28 @@ RUN service ssh start
 
 CMD ["/usr/sbin/sshd", "-D"]
 
+
+# 
+# FIN DE LA PARTIE POUR LA CONNECTION EN SSH DANS LE CONTENEUR 
+# 
+# INSTALLTION DE DOCKER ET LANCEMENT D'UN CONTENEUR DANS LE CONTENEUR 
+# 
+
+
+# toutes les commandes dedies a l'installtion de docker seront mis dans le fichier docker_install.sh
+
+
+RUN mkdir /home/roberto/Documents
+
+
+RUN touch /home/roberto/Documents/docker_install.sh
+
+COPY docker_install.sh /home/roberto/Documents/docker_install.sh
+
+RUN sudo chown -R roberto:roberto_group /home/roberto/Documents
+
+RUN sudo chmod a+x /home/roberto/Documents/docker_install.sh
+
+RUN /home/roberto/Documents/docker_install.sh
+
+# RUN sudo docker ps 
