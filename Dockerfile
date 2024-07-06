@@ -52,6 +52,18 @@ RUN sudo chown roberto:roberto_group /home/roberto/.ssh/authorized_keys
 
 RUN cat /home/roberto/.ssh/authorized_keys
 
+
+
+
+RUN sudo  apt install docker.io -y
+
+
+RUN su - ${USER}
+
+RUN groups
+
+RUN sudo  usermod -aG docker roberto
+
 # exposition du port d'access en ssh 
 
 EXPOSE 22
